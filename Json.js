@@ -1,0 +1,27 @@
+var Json=[
+  {"img":"img/邓紫棋.jpg",
+    "tat":"后会无期-邓紫棋",
+  "music":"music/G.E.M.邓紫棋 - 后会无期.mp3"},
+  {"img":"img/shangwenjie.jpg",
+    "tat":"事件的力量-尚雯婕",
+    "music":"music/尚雯婕 - 时间的力量.mp3"},
+  {"img":"img/xujiaying.jpg",
+    "tat" :"不醉不会",
+    "music":"music/徐佳莹 - 不醉不会.mp3"},
+  {"img":"img/duwenti8.jpg",
+    "tat" :"雪",
+    "music":"music/杜雯媞、王艺翔 - 雪.mp3"},
+  {"img":"img/yangzong.jpg",
+    "tat":"洋葱",
+    "music":"music/杨宗纬 - 洋葱.mp3"},
+  {"img":"img/wangjie.jpg",
+    "tat":"不浪漫罪名",
+    "music":"music/王杰 - 不浪漫罪名.mp3"},
+  {"img":"img/xuezhiqian.jpg",
+    "tat":"演员",
+    "music":"music/薛之谦 - 演员.mp3"},
+  {"img":"img/jinzhiwen.jpg",
+    "tat" :"夏洛特烦恼",
+    "music":"music/金志文 - 夏洛特烦恼.mp3"}
+
+]
