@@ -555,9 +555,47 @@
             margin: -65% 0 0 -42%;
             animation:  bounceInDown 1s 0.5s ease-in-out both;
         }
+        html,body{
+            width:200%;
+            height:200%;
+        }
+        #loading{
+            width: 100%;
+            height:100%;
+            background: black;
+            position: absolute;
+            z-index: 11;
+        }
+        .loadBox{
+            position: absolute;
+            top:40%;
+            width:80%;
+            height: 40px;
+            margin:0 10%;
+            border-radius: 10px;
+            background: white;
+        }
+        .progress{
+            display: block;
+            border-radius: 10px;
+            width:0;
+            height: 40px;
+            /*background-image: -webkit-linear-gradient(right,red 25%,green 50%,red 75%, green 100%);*/
+            background: repeating-linear-gradient(to top right,rgba(0,255,0,1),rgba(50,205,50,1)3px );
+            background-size: 40px 40px;
+            background-repeat: repeat-x;
+            -webkit-transition:  1s;
+            transition:  1s;
+
+        }
     </style>
 </head>
 <body>
+<div id="loading">
+    <div class="loadBox">
+        <span class="progress"></span>
+    </div>
+</div>
 <div id="main">
 
     <ul id="list">
@@ -659,7 +697,7 @@
 <div class="music" id="music">
     <div class="mImg">
         <img src="">
-        <audio id="bell" src="" autoplay></audio>
+        <audio id="bell" src="" ></audio>
     </div>
     <div class="control">
         <div id="btnLeft"></div><!--
@@ -692,6 +730,7 @@
     var winH = document.documentElement.clientHeight;
     var desW = 640;
     var desH = 960;
+    var num=0;
     var moveY = null;
     if (winW / winH < desW / desH) {
         main.style.webkitTransform = "scale(" + winH / desH + ")";
@@ -796,14 +835,12 @@
         setTimeout("setTime()", 1000);
     }
     setTime();
-
     var bell = getEle("#bell");
     var item = 0;
     var musicUlList = null;
     var musicUl = getEle(".musicList");
     var controlMusicUl = getEle(".musicList>ul");
     var oImgMusic = getEle(".mImg>img");
-
     var musicImg = [];
     var musicLists = [];
     var start = getEle("#start");
@@ -832,13 +869,10 @@
 
     }
     bindMusicList();
-
     oImgMusic.src = musicImg[1];
     bell.src = musicLists[1];
-
-
     //    bofang
-    on();
+
     function on() {
         window.addEventListener("load", function () {
             bell.play();
@@ -856,9 +890,7 @@
     }
     var lMusicUl = getEle("#controlMusicUl");
     var lMusicLi = getEleAll("#controlMusicUl>li");
-
     var count = 1;
-
     sound.addEventListener("touchstart", function (e) {
         if (e.target == start) {
 
@@ -945,20 +977,19 @@
         }
 
     }, false);
-
-
     for (var i = 0; i < lMusicLi.length; i++) {
         ~function (i) {
 
 
             lMusicLi[i].addEventListener("touchstart", function () {
                 bell.pause();
+                start.className = " ";
                 oImgMusic.className = "";
                 bell.src = musicLists[i];
                 count = i;
 
                 lMusicUl.className = "blocks";
-
+                start.className = " s1";
                 bell.play();
                 oImgMusic.src = musicImg[i];
                 oImgMusic.className = " move";
@@ -979,7 +1010,48 @@
 
         bell.play();
     }, false);
+    function fnLoad() {
+        var progress = getEle(".progress");
+        var loadIng = getEle("#loading");
+        var arr = ['img/pico.jpg', 'img/a99eca0c103b1f8ce7692b0f077e8139.jpg',
+            'img/c348f4b1f72db9f32e465a415226558f.jpg', 'img/f5c38ede95493ee9d0342257a56b7764.jpg',
+            'img/0542a0db9885b7bbcf4252c498f17717.jpg', 'img/aae21922aad9c3fba60f4d93325eda59.jpg',
+            'img/pico.jpg', 'img/c1.png', 'img/c2.png', 'img/c3.png', 'img/c4.png', 'img/c5.png', 'img/c6.png', 'img/weixin.JPG'];
+            for (var i = 0; i < arr.length; i++) {
+            var oImg = new Image();
+            oImg.src = '' + arr[i];
+            oImg.onload = function () {
+                num++;
+                //加载成功的图片个数占图片的百分比
+                progress.style.width = num / arr.length * 100 + "%";
+                progress.addEventListener('webkitTransitionEnd', function () {
+                    if (num == arr.length && loadIng) {
+                        loadIng.style.display = "none";
+                        //main.removeChild(loadIng);
+                        //loadIng.opacity=0;
+
+                        window.setTimeout(function () {
+                            document.body.removeChild(loadIng);
+                            //loadIng=null;
+
+                            bell.play();
+
+
+                            oImgMusic.className = " move";
+                            start.className = " s1";
+                        }, 1000)
+
+                    }
+                }, true);
+                //loadIng.className=" o";
+
+            }
+        }
+
+    }
+    fnLoad();
+
 </script>
- 
+
 </body>
 </html>
